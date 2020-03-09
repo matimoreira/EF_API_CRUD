@@ -19,6 +19,7 @@ namespace EF_API_CRUD.Controllers
         }
 
         // GET: api/Vehiclebrand
+        
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Vehiclebrand>>> GetVehiclebrand()
         {
@@ -37,6 +38,12 @@ namespace EF_API_CRUD.Controllers
             }
 
             return vehiclebrand;
+        }
+
+        [HttpGet("{page}/{pageSize}")]
+        public async Task<ActionResult<IEnumerable<Vehiclebrand>>> GetVehiclebrand(int page, int pageSize)
+        {
+            return await dbContext.Vehiclebrand.ToListAsync();
         }
 
         // PUT: api/Vehiclebrand/5

@@ -22,10 +22,16 @@ namespace EF_API_CRUD.Context
             return dbContext.Vehiclebrand.ToList();
         }
 
+        public override IEnumerable<Vehiclebrand> GetByPage(int page, int pageSize)
+        {
+            return dbContext.Vehiclebrand.Skip(page * pageSize).Take(pageSize).ToList();
+        }
+
         public override Vehiclebrand GetById(int id)
         {
             return dbContext.Vehiclebrand.SingleOrDefault(d => d.Id == id);
         }
+
 
         public override void Remove(Vehiclebrand obj)
         {

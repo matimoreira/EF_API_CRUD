@@ -13,6 +13,7 @@ namespace EF_API_CRUD.Context
         }
 
         public abstract IEnumerable<T> GetAll();
+        public abstract IEnumerable<T> GetByPage(int page, int pageSize);
         public abstract T GetById(int id);
         public abstract void Add(T newT);
         public abstract void Update(T editedObj);

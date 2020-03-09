@@ -27,6 +27,11 @@ namespace EF_API_CRUD.Context
             return dbContext.Alert.SingleOrDefault(d => d.Id == id);
         }
 
+        public override IEnumerable<Alert> GetByPage(int page, int pageSize)
+        {
+            throw new NotImplementedException();
+        }
+
         public override void Remove(Alert obj)
         {
             dbContext.Alert.Remove(obj);
