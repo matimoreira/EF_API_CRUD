@@ -1,4 +1,6 @@
 ﻿using EF_API_CRUD.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,9 +19,9 @@ namespace EF_API_CRUD.Context
             dbContext.Alert.Add(newT);
         }
 
-        public override IEnumerable<Alert> GetAll()
+        public override async Task<ActionResult<IEnumerable<Alert>>> GetAll()
         {
-            return dbContext.Alert.ToList();
+            return await dbContext.Alert.ToListAsync();
         }
 
         public override Alert GetById(int id)
@@ -27,9 +29,9 @@ namespace EF_API_CRUD.Context
             return dbContext.Alert.SingleOrDefault(d => d.Id == id);
         }
 
-        public override IEnumerable<Alert> GetByPage(int page, int pageSize)
+        public override async Task<ActionResult<IEnumerable<Alert>>> GetByPage(int page, int pageSize)
         {
-            throw new NotImplementedException();
+            return await dbContext.Alert.Skip(page * pageSize).Take(pageSize).ToListAsync();
         }
 
         public override void Remove(Alert obj)

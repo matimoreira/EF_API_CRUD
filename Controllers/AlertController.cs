@@ -20,9 +20,9 @@ namespace EF_API_CRUD.Controllers
 
         // GET: api/Alert
         [HttpGet]
-        public IEnumerable<Alert> GetAlert()
+        public Task<ActionResult<IEnumerable<Alert>>> GetAlert()
         {
-            return dbContext.GetContext<AlertContext>().GetAll().ToList();
+            return dbContext.GetContext<AlertContext>().GetAll();
         }
 
         // GET: api/Alert/5

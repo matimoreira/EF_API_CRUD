@@ -1,4 +1,6 @@
 ﻿using EF_API_CRUD.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,19 +19,28 @@ namespace EF_API_CRUD.Context
             dbContext.Vehiclebrand.Add(newT);
         }
 
-        public override IEnumerable<Vehiclebrand> GetAll()
+        public override async Task<ActionResult<IEnumerable<Vehiclebrand>>> GetAll()
         {
-            return dbContext.Vehiclebrand.ToList();
+            return await dbContext.Vehiclebrand.ToListAsync();
         }
 
-        public override IEnumerable<Vehiclebrand> GetByPage(int page, int pageSize)
+        public override async Task<ActionResult<IEnumerable<Vehiclebrand>>> GetByPage(int page, int pageSize)
         {
-            return dbContext.Vehiclebrand.Skip(0 * 5).Take(5).ToList();
+            return await dbContext.Vehiclebrand.Skip(page * pageSize).Take(pageSize).ToListAsync();
         }
 
         public override Vehiclebrand GetById(int id)
         {
             return dbContext.Vehiclebrand.SingleOrDefault(d => d.Id == id);
+        }
+
+        public double GetTotalPage(int pageSize)
+        {
+            
+            float cantidad = Convert.ToSingle(dbContext.Vehiclebrand.Count());
+            float resultado = cantidad / Convert.ToSingle(pageSize);
+
+            return Math.Ceiling(resultado);
         }
 
 

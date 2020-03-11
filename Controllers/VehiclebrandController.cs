@@ -10,7 +10,7 @@ using EF_API_CRUD.Models;
 
 namespace EF_API_CRUD.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class VehiclebrandController : SuperController
     {
@@ -19,11 +19,11 @@ namespace EF_API_CRUD.Controllers
         }
 
         // GET: api/Vehiclebrand
-        
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Vehiclebrand>>> GetVehiclebrand()
         {
-            return await dbContext.Vehiclebrand.ToListAsync();
+            return await dbContext.GetContext<VehiclebrandContext>().GetAll();
         }
 
         // GET: api/Vehiclebrand/5
@@ -41,10 +41,16 @@ namespace EF_API_CRUD.Controllers
         }
 
 
-        [HttpGet("page{page}&pageSize={pageSize}")]
+        [HttpGet("{page}/{pageSize}")]
         public async Task<ActionResult<IEnumerable<Vehiclebrand>>> GetVehiclebrand(int page, int pageSize)
         {
-            return await dbContext.Vehiclebrand.ToListAsync();
+            return await dbContext.GetContext<VehiclebrandContext>().GetByPage(page, pageSize);
+        }
+
+        [HttpGet("{pageSize}")]
+        public ActionResult<double> GetTotalPage(int pageSize)
+        {
+            return dbContext.GetContext<VehiclebrandContext>().GetTotalPage(pageSize);
         }
 
         // PUT: api/Vehiclebrand/5
@@ -104,11 +110,11 @@ namespace EF_API_CRUD.Controllers
 
             return CreatedAtAction("GetVehiclebrand", new { id = vehiclebrand.Id }, vehiclebrand);
         }
-        [HttpPost]
-        public async Task<ActionResult<IEnumerable<Vehiclebrand>>> PostVehiclebrand([FromBody]int page, [FromBody]int pageSize)
-        {
-            return await  dbContext.Vehiclebrand.Skip(page * pageSize).Take(pageSize).ToListAsync();
-        }
+        //[HttpPost]
+        //public async Task<ActionResult<IEnumerable<Vehiclebrand>>> PostVehiclebrand([FromBody]  int page, int pageSize)
+        //{
+        //    return await dbContext.Vehiclebrand.Skip(0 * 5).Take(5).ToListAsync();
+        //}
 
         // DELETE: api/Vehiclebrand/5
         [HttpDelete("{id}")]
