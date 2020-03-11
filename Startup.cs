@@ -34,14 +34,14 @@ namespace EF_API_CRUD
                 builder =>
                 {
 
-                    builder.WithOrigins("http://localhost:3000")
+                    builder.WithOrigins("http://localhost:3000", "http://localhost:3001")
                         .AllowAnyHeader()
                         .AllowAnyMethod();
                 });
                 options.AddPolicy(MyAllowSpecificOrigins,
                 builder =>
                 {
-                    builder.WithOrigins("http://localhost:3000")
+                    builder.WithOrigins("http://localhost:3000", "http://localhost:3001")
                         .AllowAnyHeader()
                         .AllowAnyMethod();
                 });

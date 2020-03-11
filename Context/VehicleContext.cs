@@ -24,7 +24,7 @@ namespace EF_API_CRUD.Context
 
         public override IEnumerable<Vehiclebrand> GetByPage(int page, int pageSize)
         {
-            return dbContext.Vehiclebrand.Skip(page * pageSize).Take(pageSize).ToList();
+            return dbContext.Vehiclebrand.Skip(0 * 5).Take(5).ToList();
         }
 
         public override Vehiclebrand GetById(int id)

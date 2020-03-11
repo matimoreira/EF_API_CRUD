@@ -40,7 +40,8 @@ namespace EF_API_CRUD.Controllers
             return vehiclebrand;
         }
 
-        [HttpGet("{page}/{pageSize}")]
+
+        [HttpGet("page{page}&pageSize={pageSize}")]
         public async Task<ActionResult<IEnumerable<Vehiclebrand>>> GetVehiclebrand(int page, int pageSize)
         {
             return await dbContext.Vehiclebrand.ToListAsync();
@@ -102,6 +103,11 @@ namespace EF_API_CRUD.Controllers
             }
 
             return CreatedAtAction("GetVehiclebrand", new { id = vehiclebrand.Id }, vehiclebrand);
+        }
+        [HttpPost]
+        public async Task<ActionResult<IEnumerable<Vehiclebrand>>> PostVehiclebrand([FromBody]int page, [FromBody]int pageSize)
+        {
+            return await  dbContext.Vehiclebrand.Skip(page * pageSize).Take(pageSize).ToListAsync();
         }
 
         // DELETE: api/Vehiclebrand/5
